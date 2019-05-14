@@ -1,6 +1,6 @@
-package TripMode;
+package TripMode.service;
 
-import TripMode.Model.*;
+import TripMode.model.*;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -47,24 +47,25 @@ public class XmlToJavaBean {
             //System.out.println("old:"+node.getCode().get(QName.valueOf("lon")));
             double lat= Double.valueOf(node.getCode().get(QName.valueOf("lat")).toString());
             double lon= Double.valueOf(node.getCode().get(QName.valueOf("lon")).toString());
-            LocateInfo locateInfo=GCJ02_WGS84.wgs84_To_Gcj02(lat,lon);
+            LocateInfo locateInfo= GCJ02_WGS84.wgs84_To_Gcj02(lat,lon);
             String latTemp=locateInfo.getLatitude()+"";
             String lonTemp=locateInfo.getLongitude()+"";
-            int end=0;
+            int end1=0;
             for (int i=0;i<latTemp.length();i++){
                 if (latTemp.charAt(i)=='.'){
-                    end=i+7;
+                    end1=i+7;
                     break;
                 }
             }
+            int end2=0;
             for (int i=0;i<lonTemp.length();i++){
                 if (lonTemp.charAt(i)=='.'){
-                    end=i+7;
+                    end2=i+7;
                     break;
                 }
             }
-            latTemp=latTemp.substring(0,end);
-            lonTemp=lonTemp.substring(0,end);
+            latTemp=latTemp.substring(0,end1);
+            lonTemp=lonTemp.substring(0,end2);
             Map map=node.getCode();
             map.put(QName.valueOf("lat"),latTemp);
             map.put(QName.valueOf("lon"),lonTemp);

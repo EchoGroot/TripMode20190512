@@ -1,6 +1,8 @@
 package TripMode;
 
-import TripMode.Model.Osm;
+import TripMode.model.Osm;
+import TripMode.service.CrossingMethod;
+import TripMode.service.XmlToJavaBean;
 
 import java.io.*;
 
@@ -14,8 +16,8 @@ public class App
         XmlToJavaBean xmlToJavaBean=new XmlToJavaBean();
         xmlToJavaBean.correct("src/main/resources/map.xml");
         Osm osm=xmlToJavaBean.getOsm();
-        CrossingMethod crossing=new CrossingMethod();
-        crossing.getConnection(osm);
+        CrossingMethod crossingMethod=new CrossingMethod();
+        crossingMethod.getConnection(osm);
         //System.out.println(osm);
 
         System.out.println( "Hello World!" );

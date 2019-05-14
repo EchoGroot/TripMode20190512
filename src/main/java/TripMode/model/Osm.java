@@ -1,4 +1,4 @@
-package TripMode.Model;
+package TripMode.model;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;

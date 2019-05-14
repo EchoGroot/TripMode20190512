@@ -1,6 +1,6 @@
-package TripMode;
+package TripMode.service;
 
-import TripMode.Model.LocateInfo;
+import TripMode.model.LocateInfo;
 
 public class GCJ02_WGS84 {
     public static double pi = 3.1415926535897932384626;

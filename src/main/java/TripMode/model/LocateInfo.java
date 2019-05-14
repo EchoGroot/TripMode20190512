@@ -1,4 +1,4 @@
-package TripMode.Model;
+package TripMode.model;
 
 public class LocateInfo {
     private double longitude;

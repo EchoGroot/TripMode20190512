@@ -1,7 +1,4 @@
-package TripMode.Model;
-
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+package TripMode.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -10,8 +7,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Map;
 
 @XmlAccessorType(XmlAccessType.NONE)
-@XmlRootElement(name = "nd")
-public class Nd {
+@XmlRootElement(name = "member")
+public class Member {
 
     @XmlAnyAttribute()
     private Map code;//每个Item的属性值
@@ -26,7 +23,7 @@ public class Nd {
 
     @Override
     public String toString() {
-        return "Nd{" +
+        return "Member{" +
                 "code=" + code +
                 '}';
     }

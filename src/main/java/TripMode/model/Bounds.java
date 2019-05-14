@@ -1,7 +1,4 @@
-package TripMode.Model;
-
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+package TripMode.model;
 
 import javax.xml.bind.annotation.*;
 import java.util.Map;

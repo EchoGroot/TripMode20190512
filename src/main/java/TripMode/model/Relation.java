@@ -1,19 +1,18 @@
-package TripMode.Model;
-
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
+package TripMode.model;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
 @XmlAccessorType(XmlAccessType.NONE)
-@XmlRootElement(name = "node")
-public class Node {
+@XmlRootElement(name = "relation")
+public class Relation {
 
     @XmlAnyAttribute()
     private Map code;//每个Item的属性值
+
+    @XmlElement(name = "member")
+    private List<Member> memberList;
 
     @XmlElement(name = "tag")
     private List<Tag> tagList;
@@ -26,6 +25,14 @@ public class Node {
         this.code = code;
     }
 
+    public List<Member> getMemberList() {
+        return memberList;
+    }
+
+    public void setMemberList(List<Member> memberList) {
+        this.memberList = memberList;
+    }
+
     public List<Tag> getTagList() {
         return tagList;
     }
@@ -36,8 +43,9 @@ public class Node {
 
     @Override
     public String toString() {
-        return "Node{" +
+        return "Relation{" +
                 "code=" + code +
+                ", memberList=" + memberList +
                 ", tagList=" + tagList +
                 '}';
     }

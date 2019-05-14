@@ -1,18 +1,15 @@
-package TripMode.Model;
+package TripMode.model;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
 @XmlAccessorType(XmlAccessType.NONE)
-@XmlRootElement(name = "relation")
-public class Relation {
+@XmlRootElement(name = "node")
+public class Node {
 
     @XmlAnyAttribute()
     private Map code;//每个Item的属性值
-
-    @XmlElement(name = "member")
-    private List<Member> memberList;
 
     @XmlElement(name = "tag")
     private List<Tag> tagList;
@@ -25,14 +22,6 @@ public class Relation {
         this.code = code;
     }
 
-    public List<Member> getMemberList() {
-        return memberList;
-    }
-
-    public void setMemberList(List<Member> memberList) {
-        this.memberList = memberList;
-    }
-
     public List<Tag> getTagList() {
         return tagList;
     }
@@ -43,9 +32,8 @@ public class Relation {
 
     @Override
     public String toString() {
-        return "Relation{" +
+        return "Node{" +
                 "code=" + code +
-                ", memberList=" + memberList +
                 ", tagList=" + tagList +
                 '}';
     }
