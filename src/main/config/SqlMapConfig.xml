@@ -9,7 +9,7 @@
                 <property name="driver" value="com.mysql.jdbc.Driver" />
                 <property name="url" value="jdbc:mysql://localhost:3306/mybatis" />
                 <property name="username" value="root" />
-                <property name="password" value="XDP" />
+                <property name="password" value="441922" />
               </dataSource>
         </environment>
     </environments>
