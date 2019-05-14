@@ -3,6 +3,7 @@
 PUBLIC  "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="test">
-    <select id="selAll" resultType="">
+    <select id="selAll" resultType="String">
+      select * from tripmode_crossing
     </select>
 </mapper>
