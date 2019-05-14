@@ -47,7 +47,7 @@ public class Crossing {
         this.connections = connections;
     }
 
-    /*@Override
+    @Override
     public String toString() {
         return "Crossing{" +
                 "id='" + id + '\'' +
@@ -55,9 +55,9 @@ public class Crossing {
                 ", lon='" + lon + '\'' +
                 ", connections=" + connections +
                 '}';
-    }*/
-    @Override
+    }
+    /*@Override
     public String toString() {
         return "https://restapi.amap.com/v3/staticmap?markers=mid,0xFF0000,A:"+lon+","+lat+"|mid,0xFF0000,B:"+connections+"&key=c6bfc5bf6c87600f79b4a461cbb760a8\n";
-    }
+    }*/
 }

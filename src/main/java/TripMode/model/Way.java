@@ -1,6 +1,7 @@
 package TripMode.model;
 
 import javax.xml.bind.annotation.*;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,10 +13,10 @@ public class Way {
     private Map code;//每个Item的属性值
 
     @XmlElement(name = "nd")
-    private List<Nd> ndList;
+    private List<Nd> ndList=new LinkedList<>();
 
     @XmlElement(name = "tag")
-    private List<Tag> tagList;
+    private List<Tag> tagList=new LinkedList<>();
 
     public Map getCode() {
         return code;

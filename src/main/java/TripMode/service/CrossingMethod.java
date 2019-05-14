@@ -30,7 +30,13 @@ public class CrossingMethod {
 
     public Set<Way> getWays(Osm osm){
         for (Way way:osm.getWay()){
-            ways.add(way);
+            System.out.println(way.getTagList());
+            for (Tag tag:way.getTagList()){
+                if (tag.getCode().get(QName.valueOf("k")).equals("highway")){
+                    ways.add(way);
+                    break;
+                }
+            }
         }
         return ways;
     }
@@ -61,12 +67,12 @@ public class CrossingMethod {
         return this.crossings;
     }
 
-    public void getConnection(Osm osm) throws IOException {
+    public Set<Crossing> getConnection(Osm osm) throws IOException {
         Connection.osm=osm;
-        Set<Crossing> crossings=new HashSet<>();
+        Set<Crossing> crossingSet=new HashSet<>();
         getCrossings(osm);
         //System.out.println("crossings:"+this.crossings.toString());
-        //int limtTemp=200;
+        //int limtTemp=20;
         System.out.println("ways.size:"+ways.size());
         for (Way way:this.ways){
             /*System.out.println("limtTemp:"+--limtTemp);
@@ -87,8 +93,10 @@ public class CrossingMethod {
             for (int j=0;j<crossingArray.size()-1;j++){
                 //交换首尾
                 int crossingFlag=0;
-                for (Crossing crossing:crossings){
+                for (Crossing crossing:crossingSet){
+                    //System.out.println("notjudge:crossing.getId()"+crossing.getId()+" crossingArray.get(j)"+crossingArray.get(j));
                     if (crossing.getId().equals(crossingArray.get(j))){
+                        System.out.println("equal:crossing.getId()"+crossing.getId()+" crossingArray.get(j)"+crossingArray.get(j));
                         int flag=0;
                         for (Connection connection:crossing.getConnections()){
                             if (connection.getConnectionId().equals(crossingArray.get(j+1))){
@@ -106,16 +114,19 @@ public class CrossingMethod {
                     }
                 }
                 if (crossingFlag==0){
+                    System.out.println("no 1   :crossingArray.get(j)"+crossingArray.get(j));
                     Crossing crossing=getLocation(osm,crossingArray.get(j));
                     //*************
                     String[] distance=getDistance(crossingArray.get(j),crossingArray.get(j+1),osm);
                     crossing.connections.add(new Connection(crossingArray.get(j+1),distance[3],distance[4],distance[0]));
-                    crossings.add(crossing);
+                    crossingSet.add(crossing);
+                    System.out.println("成功添加"+crossing.getId());
                 }
                 //交换首尾
                 crossingFlag=0;
-                for (Crossing crossing:crossings){
+                for (Crossing crossing:crossingSet){
                     if (crossing.getId().equals(crossingArray.get(j+1))){
+                        System.out.println("equal:crossing.getId()"+crossing.getId()+" crossingArray.get(j+1)"+crossingArray.get(j+1));
                         int flag=0;
                         for (Connection connection:crossing.getConnections()){
                             if (connection.getConnectionId().equals(crossingArray.get(j))){
@@ -128,19 +139,27 @@ public class CrossingMethod {
                             String[] distance=getDistance(crossingArray.get(j+1),crossingArray.get(j),osm);
                             crossing.connections.add(new Connection(crossingArray.get(j),distance[3],distance[4],distance[0]));
                         }
+                        crossingFlag=1;
                         break;
                     }
                 }
                 if (crossingFlag==0){
+                    System.out.println("no 2   :crossingArray.get(j+1)"+crossingArray.get(j+1));
+                    if (crossingArray.get(j+1).equals("1143803255")){
+                        System.out.println("///////////////////////////////////////////////////");
+                        System.out.println(crossingSet);
+                    }
                     Crossing crossing=getLocation(osm,crossingArray.get(j+1));
                     //*************
                     String[] distance=getDistance(crossingArray.get(j+1),crossingArray.get(j),osm);
                     crossing.connections.add(new Connection(crossingArray.get(j),distance[3],distance[4],distance[0]));
-                    crossings.add(crossing);
+                    crossingSet.add(crossing);
+                    System.out.println("成功添加"+crossing.getId());
                 }
             }
         }
         System.out.println(crossings);
+        return crossingSet;
     }
 
     //利用高德API得到两点的距离
