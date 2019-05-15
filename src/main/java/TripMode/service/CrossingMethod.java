@@ -158,7 +158,7 @@ public class CrossingMethod {
                 }
             }
         }
-        System.out.println(crossings);
+        System.out.println(crossingSet);
         return crossingSet;
     }
 

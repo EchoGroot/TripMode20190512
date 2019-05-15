@@ -26,11 +26,11 @@ public class App
 
         System.out.println( "Hello World!" );
 
-        IniDB iniDB=new IniDB();
+        /*IniDB iniDB=new IniDB();
         Store store=new Store(iniDB.getConnection());
         for (Crossing crossing:crossings){
             store.addCrossing(crossing);
         }
-        store.connection.close();
+        store.connection.close();*/
     }
 }
