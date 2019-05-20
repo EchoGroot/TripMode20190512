@@ -1,34 +1,39 @@
 package TripMode;
 
 
-import TripMode.pojo.TheCrossing;
-import org.apache.ibatis.io.Resources;
+import TripMode.dao.TripModeDao;
+import TripMode.model.Osm;
+import TripMode.po.CrossingPo;
+import TripMode.service.XmlToJavaBean;
+import TripMode.util.MyBatisUtil;
+import TripMode_1_Shortest_20190515.DijkstraHeap;
+import TripMode_1_Shortest_20190515.MakeData;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.SQLOutput;
 import java.util.List;
-import java.util.Scanner;
 
 public class TestDB {
     public static void main(String[] args) throws IOException {
-        String id;
-        InputStream ab = Resources.getResourceAsStream("SqlMapConfig.xml");
-        SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(ab);
-        SqlSession session = factory.openSession();
-        List<TheCrossing> list = session.selectList("test.selAll");
-        Scanner a = new Scanner(System.in);
-        id=a.nextLine();
-        //TheCrossing crossing =  session.selectOne("getLocation.getLocation",id);
-        for(TheCrossing crossing:list){
-            System.out.print(crossing);
-        }
-        //System.out.println(crossing.toString());
+        SqlSession session = MyBatisUtil.getSession();
+        TripModeDao tripModeDao=session.getMapper(TripModeDao.class);
+        List<CrossingPo> theCrossings = tripModeDao.selectAll();
+
+        MakeData makeData=new MakeData();
+        int count=theCrossings.size();
+        int[][] arr=new int[count][count];
+        arr=makeData.createData(theCrossings);
+
+        XmlToJavaBean xmlToJavaBean=new XmlToJavaBean();
+        xmlToJavaBean.correct("src/main/resources/data/map.xml");
+        Osm osm=xmlToJavaBean.getOsm();
+
+        DijkstraHeap dijkstraHeap=new DijkstraHeap();
+        dijkstraHeap.dijkstra(arr,139,310,count,tripModeDao);
+
+        CrossingPo crossingPo=tripModeDao.getLocation("1140340365");
+        System.out.println(crossingPo);
+
         session.close();
     }
 

@@ -1,4 +1,4 @@
-package TripMode.pojo;
+package TripMode.po;
 
 public class TheCrossing {
     private String id;

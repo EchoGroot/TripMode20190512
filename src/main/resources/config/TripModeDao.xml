@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC  "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="TripMode.dao.TripModeDao">
+    <select id="getLocation" resultType="TripMode.po.CrossingPo" parameterType="String">
+        select * from tripmode_crossing where ID = #{id}
+    </select>
+
+    <select id="selectAll" resultType="TripMode.po.CrossingPo">
+        select * from tripmode_crossing
+    </select>
+
+    <select id="selectWay" resultType="TripMode.po.CrossingPo">
+        select * from tripmode_crossing where
+    </select>
+</mapper>
