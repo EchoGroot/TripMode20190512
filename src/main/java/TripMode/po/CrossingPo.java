@@ -45,6 +45,9 @@ public class CrossingPo {
     private String lon10;
     private String wlong10;
 
+    /*public CrossingPo() {
+    }*/
+
     public CrossingPo(String id, String lat, String lon, String id1, String lat1, String lon1, String wlong1, String id2, String lat2, String lon2, String wlong2, String id3, String lat3, String lon3, String wlong3, String id4, String lat4, String lon4, String wlong4, String id5, String lat5, String lon5, String wlong5, String id6, String lat6, String lon6, String wlong6, String id7, String lat7, String lon7, String wlong7, String id8, String lat8, String lon8, String wlong8, String id9, String lat9, String lon9, String wlong9, String id10, String lat10, String lon10, String wlong10) {
         this.id = id;
         this.lat = lat;

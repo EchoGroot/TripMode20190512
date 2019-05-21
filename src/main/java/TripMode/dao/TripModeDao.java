@@ -2,11 +2,12 @@ package TripMode.dao;
 
 import TripMode.model.Crossing;
 import TripMode.po.CrossingPo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface TripModeDao {
     public CrossingPo getLocation(String id);
     public List<CrossingPo> selectAll();
-    public List<CrossingPo> selectWay(String startId,String endId);
+    public String selectWay(@Param("startNodeId")String startNodeId,@Param("endNodeId")String endNodeId);
 }

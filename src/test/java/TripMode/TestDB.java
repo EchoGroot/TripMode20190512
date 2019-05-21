@@ -24,15 +24,13 @@ public class TestDB {
         int[][] arr=new int[count][count];
         arr=makeData.createData(theCrossings);
 
-        XmlToJavaBean xmlToJavaBean=new XmlToJavaBean();
+        /*XmlToJavaBean xmlToJavaBean=new XmlToJavaBean();
         xmlToJavaBean.correct("src/main/resources/data/map.xml");
-        Osm osm=xmlToJavaBean.getOsm();
+        Osm osm=xmlToJavaBean.getOsm();*/
 
         DijkstraHeap dijkstraHeap=new DijkstraHeap();
-        dijkstraHeap.dijkstra(arr,139,310,count,tripModeDao);
+        dijkstraHeap.dijkstra(arr,169,322,count,tripModeDao);
 
-        CrossingPo crossingPo=tripModeDao.getLocation("1140340365");
-        System.out.println(crossingPo);
 
         session.close();
     }

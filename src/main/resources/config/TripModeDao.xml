@@ -4,14 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="TripMode.dao.TripModeDao">
     <select id="getLocation" resultType="TripMode.po.CrossingPo" parameterType="String">
-        select * from tripmode_crossing where ID = #{id}
+        select * from tripmode_crossing where ID = #{id};
     </select>
 
     <select id="selectAll" resultType="TripMode.po.CrossingPo">
-        select * from tripmode_crossing
+        select * from tripmode_crossing;
     </select>
 
-    <select id="selectWay" resultType="TripMode.po.CrossingPo">
-        select * from tripmode_crossing where
+    <select id="selectWay" resultType="String">
+        select NODE from tripmode_way where NODE like '%${startNodeId}%'and NODE like '%${endNodeId}%';
     </select>
 </mapper>

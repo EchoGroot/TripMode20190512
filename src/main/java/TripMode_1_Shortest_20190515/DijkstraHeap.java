@@ -10,6 +10,7 @@ import TripMode_1_Shortest.IniDB;
 import TripMode_1_Shortest.Shortest;
 import TripMode_2_Temp.Node;
 
+import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
@@ -66,14 +67,132 @@ public class DijkstraHeap {
         CrossingMethod crossingMethod=new CrossingMethod();
         System.out.println("路径为：");
         String temp="https://restapi.amap.com/v3/staticmap?zoom=15&size=1024*1024&paths=7,0x0000ff,1,,:";
-        for(;k>=0;k--){
-            CrossingPo crossingPo=tripModeDao.getLocation(MakeData.map1.get(shortest[k]));
-            temp+=crossingPo.getLon() +","
-                    +crossingPo.getLat();
-            if (k!=0){
-                temp+=";";
+        int intTemp=0;
+        for(;k>0;k--){
+            //if (intTemp<5){
+            String startNodeId=MakeData.map1.get(shortest[k]);
+            String endNodeId=MakeData.map1.get(shortest[k-1]);
+            //System.out.println("start:"+startNodeId);
+            //System.out.println("end:"+endNodeId);
+            String nodeTemp=tripModeDao.selectWay(startNodeId,endNodeId);
+            //System.out.println("nodeTemp"+nodeTemp);
+            //intTemp++;
+            int startSubIndex=0;
+            int endSubIndex=0;
+            ArrayList<String> stringArrayList=new ArrayList<>();
+            for (int i=0;i<nodeTemp.length();i++){
+                if (nodeTemp.charAt(i)==':'){
+                    endSubIndex=i;
+                    //System.out.println(startSubIndex+","+endSubIndex);
+                    //System.out.println(nodeTemp.substring(startSubIndex,endSubIndex));
+                    if (nodeTemp.substring(startSubIndex,endSubIndex).equals(startNodeId)){
+                        int endSubIndexTemp=0;
+                        for (int j=i;;j++){
+                            if (nodeTemp.charAt(j)==';'){
+                                endSubIndexTemp=j;
+                                break;
+                            }
+                        }
+                        //System.out.println("nodeTemp.substring(i+1,endSubIndexTemp)"+nodeTemp.substring(i+1,endSubIndexTemp));
+                        stringArrayList.add(nodeTemp.substring(i+1,endSubIndexTemp)+";");
+                        startSubIndex=endSubIndexTemp+1;
+                        for (int j=endSubIndexTemp;j<nodeTemp.length();j++){
+                                //System.out.println("j="+j);
+                                if (nodeTemp.charAt(j)==':'){
+                                    endSubIndex=j;
+                                    //System.out.println("nodeTemp.substring(startSubIndex,endSubIndex)"+nodeTemp.substring(startSubIndex,endSubIndex));
+                                    if (!nodeTemp.substring(startSubIndex,endSubIndex).equals(endNodeId)) {
+                                        int endSubIndexTemp1 = 0;
+                                        for (int k1 = j; ; k1++) {
+                                            if (nodeTemp.charAt(k1) == ';') {
+                                                endSubIndexTemp1 = k1;
+                                                break;
+                                            }
+                                        }
+                                        //System.out.println("--------------------------------------------");
+                                        //System.out.println(nodeTemp.substring(endSubIndex + 1, endSubIndexTemp1));
+                                        stringArrayList.add(nodeTemp.substring(endSubIndex + 1, endSubIndexTemp1)+";");
+                                    }
+                                    else {
+                                        break;
+                                    }
+                                }else if(nodeTemp.charAt(j)==';'){
+                                    startSubIndex=j+1;
+                                }
+                            }
+                        //将数组内的str拼接给temp
+                        for (int j=0;j<stringArrayList.size();j++){
+                            //System.out.println("--------------------000------------------------");
+                            //System.out.println(stringArrayList.get(j));
+                            temp+=stringArrayList.get(j);
+                        }
+                        break;
+                    }
+                    //交换首尾
+                    //break
+                    //差起点的经纬度
+                    if (nodeTemp.substring(startSubIndex,endSubIndex).equals(endNodeId)){
+                        int endSubIndexTemp=0;
+                        for (int j=i;;j++){
+                            if (nodeTemp.charAt(j)==';'){
+                                endSubIndexTemp=j;
+                                break;
+                            }
+                        }
+                        //System.out.println(nodeTemp.substring(i+1,endSubIndexTemp));
+                        stringArrayList.add(nodeTemp.substring(i+1,endSubIndexTemp)+";");
+                        startSubIndex=endSubIndexTemp+1;
+                        for (int j=endSubIndexTemp;j<nodeTemp.length();j++) {
+                            if (nodeTemp.charAt(j) == ':') {
+                                endSubIndex = j;
+                                if (!nodeTemp.substring(startSubIndex, endSubIndex).equals(startNodeId)) {
+                                    int endSubIndexTemp1 = 0;
+                                    for (int k1 = j; ; k1++) {
+                                        if (nodeTemp.charAt(k1) == ';') {
+                                            endSubIndexTemp1 = k1;
+                                            break;
+                                        }
+                                    }
+                                    //System.out.println(nodeTemp.substring(endSubIndexTemp + 1, endSubIndexTemp1));
+                                    stringArrayList.add(nodeTemp.substring(endSubIndex + 1, endSubIndexTemp1)+";");
+                                } else {
+                                    int endSubIndexTemp1 = 0;
+                                    for (int k1 = j; ; k1++) {
+                                        if (nodeTemp.charAt(k1) == ';') {
+                                            endSubIndexTemp1 = k1;
+                                            break;
+                                        }
+                                    }
+                                    //System.out.println(nodeTemp.substring(endSubIndexTemp + 1, endSubIndexTemp1));
+                                    stringArrayList.add(nodeTemp.substring(endSubIndex + 1, endSubIndexTemp1)+";");
+                                    break;
+                                }
+                            } else if (nodeTemp.charAt(j) == ';') {
+                                startSubIndex = j + 1;
+                            }
+                        }
+                            //将数组内的str拼接给temp
+                        for (int j=0;j<stringArrayList.size()-1;j++){
+                            //System.out.println("--------------------111------------------------");
+                            //System.out.println(stringArrayList.get(stringArrayList.size()-1-j));
+                            temp+=stringArrayList.get(stringArrayList.size()-1-j);
+                        }
+                        break;
+
+                    }
+                }
+                else if(nodeTemp.charAt(i)==';'){
+                    startSubIndex=i+1;
+                }
             }
+
+
+
+        //}
         }
+        CrossingPo crossingPo=tripModeDao.getLocation(MakeData.map1.get(shortest[0]));
+        temp+=crossingPo.getLon() +","
+                +crossingPo.getLat();
         temp+="&key=c6bfc5bf6c87600f79b4a461cbb760a8";
         System.out.println(temp);
     }

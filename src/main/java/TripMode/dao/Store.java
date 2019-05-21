@@ -1,6 +1,7 @@
 package TripMode.dao;
 
 import TripMode.model.Crossing;
+import TripMode.model.Way;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -622,5 +623,14 @@ public class Store {
                 break;
         }
 
+    }
+
+    public void addWay(String wayId,String nodeOfWayStr) throws SQLException {
+        String sql="insert into tripmode_way (WAY_ID,NODE)values('"+wayId+"','"+nodeOfWayStr+"');";
+        System.out.println(sql);
+        PreparedStatement preparedStatement=connection.prepareStatement(sql);
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+        System.out.println("插入信息成功");
     }
 }
