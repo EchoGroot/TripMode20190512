@@ -14,4 +14,8 @@
     <select id="selectWay" resultType="String">
         select NODE from tripmode_way where NODE like '%${startNodeId}%'and NODE like '%${endNodeId}%';
     </select>
+
+    <select id="judgeCrossing" resultType="String">
+        select ID from tripmode_crossing where LAT = '${lat}' and LON ='${lon}';
+    </select>
 </mapper>

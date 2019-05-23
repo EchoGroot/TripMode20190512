@@ -10,4 +10,5 @@ public interface TripModeDao {
     public CrossingPo getLocation(String id);
     public List<CrossingPo> selectAll();
     public String selectWay(@Param("startNodeId")String startNodeId,@Param("endNodeId")String endNodeId);
+    public String judgeCrossing(@Param("lon")String lon,@Param("lat")String lat);
 }

@@ -15,6 +15,11 @@ public class Crossing {
         this.lon = lon;
     }
 
+    public Crossing(double lon, double lat) {
+        this.lat = lat+"";
+        this.lon = lon+"";
+    }
+
     public String getId() {
         return id;
     }

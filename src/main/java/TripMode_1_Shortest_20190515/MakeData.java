@@ -1,13 +1,14 @@
 package TripMode_1_Shortest_20190515;
 
+import TripMode.dao.TripModeDao;
+import TripMode.model.Crossing;
 import TripMode.po.CrossingPo;
-import TripMode.po.TheCrossing;
 
 import java.io.IOException;
 import java.util.*;
 
 public class MakeData {
-    private Map<String, Integer> map=new HashMap<>();
+    public static Map<String, Integer> map=new HashMap<>();
     public static Map<Integer,String> map1=new HashMap<>();
     public static final Integer INF=100000;
 
@@ -113,8 +114,48 @@ public class MakeData {
                         =Integer.valueOf(theCrossing.getWlong10());
             }
         }
-
         return arr;
+    }
+
+    public int[] connectStartAndEnd(Crossing startCrossing, Crossing endCrossing, TripModeDao tripModeDao){
+        int[] arr=new int[2];
+        double min=INF;
+        String minId="";
+        double min1=INF;
+        String minId1="";
+        List<CrossingPo> crossingPoList=tripModeDao.selectAll();
+
+        for (CrossingPo crossingPo:crossingPoList){
+            double temp=(Double.valueOf(crossingPo.getLon())-Double.valueOf(startCrossing.getLon()))
+                    *(Double.valueOf(crossingPo.getLon())-Double.valueOf(startCrossing.getLon()))
+                    +(Double.valueOf(crossingPo.getLat())-Double.valueOf(startCrossing.getLat()))
+                    *(Double.valueOf(crossingPo.getLat())-Double.valueOf(startCrossing.getLat()));
+            if (temp<min){
+                min=temp;
+                minId=crossingPo.getId();
+            }
+            double temp1=(Double.valueOf(crossingPo.getLon())-Double.valueOf(endCrossing.getLon()))
+                    *(Double.valueOf(crossingPo.getLon())-Double.valueOf(endCrossing.getLon()))
+                    +(Double.valueOf(crossingPo.getLat())-Double.valueOf(endCrossing.getLat()))
+                    *(Double.valueOf(crossingPo.getLat())-Double.valueOf(endCrossing.getLat()));
+            if (temp1<min1){
+                min1=temp1;
+                minId1=crossingPo.getId();
+            }
+        }
+        arr[0]=MakeData.map.get(minId);
+        arr[1]=MakeData.map.get(minId1);
+        return arr;
+
+    }
+
+    public int judgeCrossing(String lon,String lat,TripModeDao tripModeDao){
+        String answer=tripModeDao.judgeCrossing(lon,lat);
+        System.out.println("answer:"+answer);
+        if (answer==null){
+            return 0;
+        }
+        return Integer.valueOf(answer);
     }
 
     public Map<String, Integer> getMap() {

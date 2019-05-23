@@ -2,6 +2,7 @@ package TripMode;
 
 
 import TripMode.dao.TripModeDao;
+import TripMode.model.Crossing;
 import TripMode.model.Osm;
 import TripMode.po.CrossingPo;
 import TripMode.service.XmlToJavaBean;
@@ -24,12 +25,16 @@ public class TestDB {
         int[][] arr=new int[count][count];
         arr=makeData.createData(theCrossings);
 
-        /*XmlToJavaBean xmlToJavaBean=new XmlToJavaBean();
-        xmlToJavaBean.correct("src/main/resources/data/map.xml");
-        Osm osm=xmlToJavaBean.getOsm();*/
+        //起末点关联路口
+        //makeData.judgeCrossing(106.712406+"",26.584407+"",tripModeDao);
+        int[] arrLocation=new int[2];
+        arrLocation=makeData.connectStartAndEnd(
+                new Crossing(106.700342,26.581504),
+                new Crossing(106.713668,26.583682),
+                tripModeDao);
 
         DijkstraHeap dijkstraHeap=new DijkstraHeap();
-        dijkstraHeap.dijkstra(arr,169,322,count,tripModeDao);
+        dijkstraHeap.dijkstra(arr,arrLocation[0],arrLocation[1],count,tripModeDao);
 
 
         session.close();

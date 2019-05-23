@@ -41,6 +41,7 @@ public class CrossingMethod {
         return ways;
     }
 
+    //获得所有路口
     public Set<String> getCrossings(Osm osm){
         Set<String> nodes=getNodes(osm);
         Set<Way> ways=getWays(osm);
@@ -67,6 +68,7 @@ public class CrossingMethod {
         return this.crossings;
     }
 
+    //获得路口的邻接信息
     public Set<Crossing> getConnection(Osm osm) throws IOException {
         Connection.osm=osm;
         Set<Crossing> crossingSet=new HashSet<>();

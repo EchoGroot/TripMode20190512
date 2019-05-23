@@ -440,7 +440,7 @@ public class CrossingPo {
 
     @Override
     public String toString() {
-        return "TheCrossing{" +
+        return "CrossingPo{" +
                 "id='" + id + '\'' +
                 ", lat='" + lat + '\'' +
                 ", lon='" + lon + '\'' +

@@ -54,7 +54,7 @@ public class DijkstraHeap {
         //输出start到end的路径和距离
         String tempDist="距离为：\n";
         tempDist+=dist[end];
-        System.out.println(tempDist);
+        System.out.println(tempDist+"m");
         int shortest[]=new int[count];
         int k=0;
         shortest[k]=end;
