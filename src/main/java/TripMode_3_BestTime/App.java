@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class App {
     public void getRandom(){
-        String temp="";
+        String temp="122";
         Random random=new Random();
         for (int i=0;i<50;i++){
             temp+= Integer.toString(random.nextInt(10));

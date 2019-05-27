@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 public class IniDB {
     public Connection connection;
     public IniDB()throws Exception{
-        String URL = "jdbc:mysql://127.0.0.1:3306/tripmode?characterEncoding=utf8&serverTimezone=UTC";
+        String URL = "jdbc:mysql://127.0.0.1:3306/trip_mode?characterEncoding=utf8&serverTimezone=UTC";
         String USER_NAME = "tripmode";
         String PASSWORD = "123456";
         String driver = "com.mysql.cj.jdbc.Driver";
