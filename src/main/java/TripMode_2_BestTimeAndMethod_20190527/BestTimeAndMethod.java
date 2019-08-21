@@ -53,6 +53,7 @@ public class BestTimeAndMethod {
             e.printStackTrace();
         }
         //System.out.println(response);
+        if (Integer.valueOf(response.getCount())==0)return 0;
         timeByLightRail=Double.valueOf(response.getRoute().getTransits().getTransits().get(0).getDuration())/60;
         return timeByLightRail;
     }
@@ -77,7 +78,10 @@ public class BestTimeAndMethod {
             e.printStackTrace();
         }
         //System.out.println(response);
+        if (Integer.valueOf(response.getCount())==0)return 0;
         timeByBus=Double.valueOf(response.getRoute().getTransits().getTransits().get(0).getDuration())/60;
         return timeByBus;
     }
+
+
 }
