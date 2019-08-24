@@ -3,11 +3,11 @@ package TripMode.model;
 import javax.xml.namespace.QName;
 
 public class Connection {
-    private String connectionId;
-    private String connectionLon;
-    private String connectionLat;
-    private String connectionValue;
-    public static Osm osm;
+    private String connectionId;//目标点连接的点的Id
+    private String connectionLon;//目标点连接的点的经度
+    private String connectionLat;//目标点连接的点的维度
+    private String connectionValue;//目标点连接的点的权值（时间）
+    public static Osm osm;//oopenstreetXML转出来的Bean
 
     public String getConnectionLon() {
         return connectionLon;

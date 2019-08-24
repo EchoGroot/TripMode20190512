@@ -18,6 +18,7 @@ public class CrossingMethod {
     private Set<Way> ways=new HashSet<>();
     private Set<String> crossings=new HashSet<>();
 
+    //获取所有节点
     public Set<String> getNodes(Osm osm){
         for (Node node:osm.getNode()){
             Map map=node.getCode();
@@ -28,6 +29,7 @@ public class CrossingMethod {
         return nodes;
     }
 
+    //获取所有路
     public Set<Way> getWays(Osm osm){
         for (Way way:osm.getWay()){
             System.out.println(way.getTagList());

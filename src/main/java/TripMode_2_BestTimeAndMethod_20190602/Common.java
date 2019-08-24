@@ -12,6 +12,11 @@ public class Common {
         this.connection=connection;
     }
 
+    /**
+     * 插入方块中心点数据
+     * @param point
+     * @throws SQLException
+     */
     public void addPoint(Point point) throws SQLException {
         String sql="INSERT INTO point_info(POINT_ID," +
                 "LON_MIN,LON_MAX," +

@@ -4,10 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Crossing {
-    private String id;
-    private String lat;
-    private String lon;
-    public List<Connection> connections=new LinkedList<>();
+    private String id;//路口Id
+    private String lat;//路口维度
+    private String lon;//路口经度
+    public List<Connection> connections=new LinkedList<>();//目标路口与周围路口的连接
 
     public Crossing(String id, String lat, String lon) {
         this.id = id;

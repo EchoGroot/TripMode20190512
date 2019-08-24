@@ -13,8 +13,15 @@ public class Store {
         this.connection=connection;
     }
 
+    /**
+     * 插入路口信息
+     * 包括路口和与之相连接的路口信息
+     * 详情见tripmode_crossing表
+     * @param crossing
+     * @throws SQLException
+     */
     public void addCrossing(Crossing crossing) throws SQLException {
-        int size=crossing.getConnections().size();
+        int size=crossing.getConnections().size();//获取目标路口所连接的周围路口的数量
         switch (size){
             case 0:
                 String sql="INSERT INTO tripmode_crossing(ID," +
@@ -625,6 +632,13 @@ public class Store {
 
     }
 
+    /**
+     * 插入道路信息
+     * 道路由路口连接组成
+     * @param wayId
+     * @param nodeOfWayStr
+     * @throws SQLException
+     */
     public void addWay(String wayId,String nodeOfWayStr) throws SQLException {
         String sql="insert into tripmode_way (WAY_ID,NODE)values('"+wayId+"','"+nodeOfWayStr+"');";
         System.out.println(sql);
